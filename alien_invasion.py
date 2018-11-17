@@ -16,6 +16,11 @@ def run_game():
     # 创建一艘飞船
     ship = Ship(ai_settings, screen)
 
+    # 创建一群外星人
+    aliens = Group()
+
+    gf.create_fleet(ai_settings, screen, ship, aliens)
+
     # 创建存储子弹的编组
     bullets = Group()
 
@@ -25,11 +30,12 @@ def run_game():
         gf.check_events(ai_settings, screen, ship, bullets)
         # 在刷新屏幕之前更新飞船位置，刷新屏幕之后方便显示出飞船位置
         ship.update()
-        bullets.update()
         # 更新子弹信息
-        gf.update_bullets(bullets)
+        gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
+        # 更新外星人移动信息
+        gf.update_aliens(ai_settings, ship, aliens)
         # 绘制屏幕
-        gf.update_screen(ai_settings, screen, ship, bullets)
+        gf.update_screen(ai_settings, screen, ship, aliens, bullets)
 
 
 run_game()
