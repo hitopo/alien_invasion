@@ -1,5 +1,8 @@
+import pygame
+
+
 class Settings:
-    """存储着《外星人入侵所有设置的类》"""
+    """存储着外星人入侵所有设置的类"""
 
     def __init__(self):
         """初始化游戏静态设置"""
@@ -15,7 +18,7 @@ class Settings:
 
         # 子弹设置
         self.bullet_speed_factor = 3
-        self.bullet_width = 3
+        self.bullet_width = 300
         self.bullet_height = 15
         self.bullet_color = 60, 60, 60
         self.bullet_allowed = 3
@@ -30,9 +33,16 @@ class Settings:
         self.button_width, self.button_height = 175, 50
         self.button_color = (0, 255, 0)
         self.button_text_color = (255, 255, 255)
+        self.button_font = pygame.font.SysFont(None, 48)
+
+        # 计分板设置
+        self.scoreboard_txt_color = (30, 30, 30)
+        self.scoreboard_font = pygame.font.SysFont(None, 48)
 
         # 加快游戏节奏的比例系数
         self.speedup_scale = 1.2
+        # 外星人分数点上涨系数
+        self.score_scale = 1.5
 
         # 加载动态设置
         self.initialize_dynamic_settings()
@@ -46,8 +56,14 @@ class Settings:
         # fleet_direction为1表示右，为-1表示左
         self.fleet_direction = 1
 
+        # 初始化计分
+        self.alien_points = 50
+
     def increase_speed(self):
         """增加游戏速度"""
         self.ship_speed_factor *= self.speedup_scale
         self.bullet_speed_factor *= self.speedup_scale
         self.alien_speed_factor *= self.speedup_scale
+        # 提高外星人分数
+        self.alien_points = int(self.alien_points * self.score_scale)
+

@@ -8,7 +8,17 @@ class GameStats:
         self.reset_stats()
         # 游戏状态，False代表游戏结束
         self.game_active = False
+        # 任何情况下都不应该重置最高分
+        self.high_score = 0
 
     def reset_stats(self):
         """初始化在游戏过程中可能会变化的量"""
         self.ships_left = self.ai_settings.ship_limit
+
+        # 重新开始游戏之后重置得分
+        self.score = 0
+
+        # 当前外星人等级
+        self.level = 1
+
+

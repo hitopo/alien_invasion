@@ -4,6 +4,7 @@ from pygame.sprite import Group
 import game_functions as gf
 from button import Button
 from game_stats import GameStats
+from scoreboard import Scoreboard
 from settings import Settings
 from ship import Ship
 
@@ -33,22 +34,25 @@ def run_game():
     # 创建游戏信息统计
     stats = GameStats(ai_settings)
 
+    # 创建记分牌
+    sb = Scoreboard(ai_settings, screen, stats)
     # 开始游戏主循环
     while True:
         # 监视鼠标和键盘事件
-        gf.check_events(ai_settings, screen, stats, play_button, ship, aliens, bullets)
+        gf.check_events(ai_settings, screen, stats, sb, play_button, ship, aliens, bullets)
         # 再更新元素位置信息之前就检查是否还需要继续游戏（有无生命）
         if stats.game_active:
             # 在刷新屏幕之前更新飞船位置，刷新屏幕之后方便显示出飞船位置
             ship.update()
             # 更新子弹信息
-            gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
+            gf.update_bullets(ai_settings, screen, stats, sb,
+                              ship, aliens, bullets)
             # 更新外星人移动信息
-            gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
+            gf.update_aliens(ai_settings, screen, stats, sb, ship, aliens, bullets)
 
         # 绘制屏幕
-        gf.update_screen(ai_settings, screen, stats, ship, aliens,
-                         bullets, play_button)
+        gf.update_screen(ai_settings, screen, stats, sb, ship,
+                         aliens, bullets, play_button)
 
 
 run_game()
