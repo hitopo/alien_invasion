@@ -8,7 +8,7 @@ class Settings:
         """初始化游戏静态设置"""
         # 屏幕设置
         self.screen_width = 1200
-        self.screen_height = 550
+        self.screen_height = 600
         # 背景颜色
         self.bg_color = (230, 230, 230)
 
@@ -18,7 +18,7 @@ class Settings:
 
         # 子弹设置
         self.bullet_speed_factor = 3
-        self.bullet_width = 300
+        self.bullet_width = 3
         self.bullet_height = 15
         self.bullet_color = 60, 60, 60
         self.bullet_allowed = 3
